@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Analysis Results</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Published At</th>
+                <th>Comment</th>
+                <th>Category</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+            <tr>
+                <td>{{ comment.published_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ comment.text }}</td>
+                <td>{{ comment.category }}</td>
+                <td>
+                    <a href="{{ comment.link }}" target="_blank" class="btn btn-sm btn-primary">View Comment</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}
