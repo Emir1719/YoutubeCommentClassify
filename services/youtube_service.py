@@ -50,7 +50,7 @@ class YouTubeService:
         channel_id = items[0]['snippet']['channelId']
         return channel_id
 
-    def get_recent_videos(self, channel_id, days=2):
+    def get_recent_videos(self, channel_id, days=8):
         videos = []
         request = self.youtube.search().list(
             part='snippet',
