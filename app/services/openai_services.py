@@ -33,6 +33,4 @@ Donation: Expressions of intent to donate or questions related to donations.
             print(f"OpenAI API error: {e}")
             category = "Uncategorized"
             
-        print(category)
-        
         return category

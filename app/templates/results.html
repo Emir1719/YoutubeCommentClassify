@@ -2,10 +2,31 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Sonuçlar</h1>
+    <h4>Toplam Yorum: {{ comments|length }}</h4>
+    <br>
 
-    <p>Toplam Yorum: {{ comments|length }}</p>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Positive</th>
+                <th>Negative</th>
+                <th>Question</th>
+                <th>Donation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ positive_comments|length }}</td>
+                <td>{{ negative_comments|length }}</td>
+                <td>{{ question_comments|length }}</td>
+                <td>{{ donation_comments|length }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
                 <th>Tarih</th>
@@ -27,6 +48,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('index.index') }}" class="btn btn-secondary">Back</a>
+    <a href="{{ url_for('index.index') }}" class="btn btn-secondary mb-2">Back</a>
+    <br>
 </div>
 {% endblock %}

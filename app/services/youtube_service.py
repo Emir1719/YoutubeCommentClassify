@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 from datetime import datetime, timedelta
 from app.services.comment import Comment
+from zoneinfo import ZoneInfo  # Python 3.9+ için
 
 class YouTubeService:
     def __init__(self, api_key):
@@ -19,7 +20,7 @@ class YouTubeService:
         channel_id = items[0]['snippet']['channelId']
         return channel_id
 
-    def get_recent_videos(self, channel_id, days=4):
+    def get_recent_videos(self, channel_id, days=3):
         videos = []
         request = self.youtube.search().list(
             part='snippet',
@@ -51,7 +52,10 @@ class YouTubeService:
                 comment_text = snippet['textOriginal']
                 comment_id = item['snippet']['topLevelComment']['id']
                 comment_link = f"https://www.youtube.com/watch?v={video_id}&lc={comment_id}"
+                
+                # UTC'den Europe/Istanbul zaman dilimine dönüştürme
                 published_at = datetime.strptime(snippet['publishedAt'], "%Y-%m-%dT%H:%M:%SZ")
+                published_at = published_at.replace(tzinfo=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Istanbul"))
 
                 comment = Comment(
                     video_id=video_id,
