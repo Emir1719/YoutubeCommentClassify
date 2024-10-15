@@ -41,7 +41,6 @@ def results(channel_username):
         return redirect(url_for('index'))
     
     # Sort comments by published_at in descending order
-    print(comments)
     comments.sort(key=lambda x: x.published_at, reverse=True)
     return render_template('results.html', comments=comments)
     

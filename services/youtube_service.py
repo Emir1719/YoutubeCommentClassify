@@ -1,37 +1,6 @@
 from googleapiclient.discovery import build
 from datetime import datetime, timedelta
-import re
-import string
-from services.openai_services import OpenAIService
-
-class Comment:
-    def __init__(self, video_id, text, link, published_at):
-        self.video_id = video_id
-        self.text = text
-        self.link = link
-        self.published_at = published_at
-        self.category = None  # Will be set after classification
-
-    def clean(self):
-        # Remove numbers
-        self.text = re.sub(r'\d+', '', self.text)
-        # Remove punctuation
-        self.text = self.text.translate(str.maketrans('', '', string.punctuation))
-        # Remove emojis
-        emoji_pattern = re.compile(
-            "["
-            u"\U0001F600-\U0001F64F"  # Emoticons
-            u"\U0001F300-\U0001F5FF"  # Symbols & Pictographs
-            u"\U0001F680-\U0001F6FF"  # Transport & Map Symbols
-            u"\U0001F1E0-\U0001F1FF"  # Flags
-            "]+", flags=re.UNICODE)
-        self.text = emoji_pattern.sub(r'', self.text)
-        self.text = self.text.strip()
-
-    def classify(self, openai_service: OpenAIService):
-        # Corrected: only pass self.text as an argument
-        self.category = openai_service.classify_comment(self.text)
-
+from services.comment import Comment
 
 class YouTubeService:
     def __init__(self, api_key):
@@ -50,7 +19,7 @@ class YouTubeService:
         channel_id = items[0]['snippet']['channelId']
         return channel_id
 
-    def get_recent_videos(self, channel_id, days=8):
+    def get_recent_videos(self, channel_id, days=2):
         videos = []
         request = self.youtube.search().list(
             part='snippet',

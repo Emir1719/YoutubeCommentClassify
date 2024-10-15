@@ -2,24 +2,26 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Analysis Results</h1>
+    <h1>Sonuçlar</h1>
+
+    <p>Toplam Yorum: {{ comments|length }}</p>
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>Published At</th>
-                <th>Comment</th>
-                <th>Category</th>
+                <th>Tarih</th>
+                <th>Yorum</th>
+                <th>Kategori</th>
                 <th>Link</th>
             </tr>
         </thead>
         <tbody>
             {% for comment in comments %}
             <tr>
-                <td>{{ comment.published_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ comment.published_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
                 <td>{{ comment.text }}</td>
                 <td>{{ comment.category }}</td>
                 <td>
-                    <a href="{{ comment.link }}" target="_blank" class="btn btn-sm btn-primary">View Comment</a>
+                    <a href="{{ comment.link }}" target="_blank" class="btn btn-sm btn-primary">Link</a>
                 </td>
             </tr>
             {% endfor %}

@@ -32,5 +32,7 @@ Donation: Intent to make a monetary donation or questions about donations
         except Exception as e:
             print(f"OpenAI API error: {e}")
             category = "Uncategorized"
+            
+        print(category)
         
         return category
