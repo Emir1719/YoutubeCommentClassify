@@ -8,11 +8,11 @@ class OpenAIService:
     # Yorumun hangi kategoriye ait olduğunu anlaması için modelin yönlendirilmesi
         prompt = f"""
 {comment}
-Which category does this comment belong to? Answer only category's name
-Positive: Appreciative and positive comments, guidance messages, quotations from religious books
-Negative: Derogatory remarks, insults, negative criticism, insults to Islam, support for different beliefs
-Question: Questions about Islamic/religious topics or the channel
-Donation: Intent to make a monetary donation or questions about donations
+Categorize the following comment. Respond with only one of these categories: Positive, Negative, Question or Donation.
+Positive: Positive remarks, appreciative comments, guidance, or religious quotations.
+Negative: Insults, negative remarks, criticism, derogatory comments, or promotion of beliefs contradicting Islam.
+Question: Inquiries about Islamic topics, religious matters, or the channel.
+Donation: Expressions of intent to donate or questions related to donations.
     """
 
         messages = [

@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 from datetime import datetime, timedelta
-from services.comment import Comment
+from app.services.comment import Comment
 
 class YouTubeService:
     def __init__(self, api_key):
@@ -19,7 +19,7 @@ class YouTubeService:
         channel_id = items[0]['snippet']['channelId']
         return channel_id
 
-    def get_recent_videos(self, channel_id, days=2):
+    def get_recent_videos(self, channel_id, days=4):
         videos = []
         request = self.youtube.search().list(
             part='snippet',

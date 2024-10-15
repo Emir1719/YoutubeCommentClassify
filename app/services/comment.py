@@ -1,6 +1,5 @@
-import re
-import string
-from services.openai_services import OpenAIService
+from app.services.openai_services import OpenAIService
+from app.services.text_cleaner import TextCleaner
 
 class Comment:
     def __init__(self, video_id, text, link, published_at):
@@ -11,23 +10,9 @@ class Comment:
         self.category = None  # Will be set after classification
 
     def clean(self):
-        # Remove numbers
-        self.text = re.sub(r'\d+', '', self.text)
-        # Remove punctuation
-        self.text = self.text.translate(str.maketrans('', '', string.punctuation))
-        # Remove emojis
-        emoji_pattern = re.compile(
-            "["
-            u"\U0001F600-\U0001F64F"  # Emoticons
-            u"\U0001F300-\U0001F5FF"  # Symbols & Pictographs
-            u"\U0001F680-\U0001F6FF"  # Transport & Map Symbols
-            u"\U0001F1E0-\U0001F1FF"  # Flags
-            "]+", flags=re.UNICODE)
-        self.text = emoji_pattern.sub(r'', self.text)
-        self.text = self.text.strip()
+        self.text = TextCleaner.clean(self.text)
 
     def classify(self, openai_service: OpenAIService):
-        # Corrected: only pass self.text as an argument
         self.category = openai_service.classify_comment(self.text)
         
     # Sınıfı bir sözlük yapısına dönüştürme fonksiyonu
