@@ -8,18 +8,18 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>Positive</th>
-                <th>Negative</th>
-                <th>Question</th>
-                <th>Donation</th>
+                <th class="text-center">Positive</th>
+                <th class="text-center">Negative</th>
+                <th class="text-center">Question</th>
+                <th class="text-center">Donation</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>{{ positive_comments|length }}</td>
-                <td>{{ negative_comments|length }}</td>
-                <td>{{ question_comments|length }}</td>
-                <td>{{ donation_comments|length }}</td>
+                <td class="text-center">{{ positive_comments|length }}</td>
+                <td class="text-center">{{ negative_comments|length }}</td>
+                <td class="text-center">{{ question_comments|length }}</td>
+                <td class="text-center">{{ donation_comments|length }}</td>
             </tr>
         </tbody>
     </table>
@@ -29,26 +29,33 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
             <tr>
-                <th>Tarih</th>
-                <th>Yorum</th>
-                <th>Kategori</th>
-                <th>Link</th>
+                <th class="text-center">Tarih</th>
+                <th class="text-center">Yorum</th>
+                <th class="text-center">Kategori</th>
+                <th class="text-center">Link</th>
             </tr>
         </thead>
         <tbody>
             {% for comment in comments %}
             <tr>
-                <td>{{ comment.published_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
-                <td>{{ comment.text }}</td>
-                <td>{{ comment.category }}</td>
-                <td>
+                <td class="text-center align-middle p-2">
+                    <div class="mb-2">
+                        <strong>{{ comment.published_at.strftime('%H:%M') }}</strong> <!-- Saat kalın -->
+                    </div>
+                    <div>
+                        {{ comment.published_at.strftime('%d.%m.%Y') }} <!-- Tarih alt satırda -->
+                    </div>
+                </td>                
+                <td class="align-middle">{{ comment.text }}</td>
+                <td class="text-center align-middle">{{ comment.category }}</td>
+                <td class="text-center align-middle">
                     <a href="{{ comment.link }}" target="_blank" class="btn btn-sm btn-primary">Link</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ url_for('index.index') }}" class="btn btn-secondary mb-2">Back</a>
+    <a href="{{ url_for('index.index') }}" class="btn btn-secondary mb-3">Önceki Sayfaya Dön</a>
     <br>
 </div>
 {% endblock %}

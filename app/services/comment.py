@@ -25,9 +25,9 @@ class Comment:
         }
         
     @classmethod
-    def from_dict(cls, data):
+    def from_dict(self, data):
         from datetime import datetime
-        return cls(
+        return self(
             text=data['text'],
             published_at=datetime.strptime(data['published_at'], '%d.%m.%Y %H:%M:%S'),
             category=data['category'],
